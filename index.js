@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.post('/api/writeToCsv', async (req, res) => {
     await wrietToCsv(req.body);
     res.status(200).json({
-        message: 'Request Successfully added for Batch Processing!!!'
+        message: 'Successfully added data to CSV file!'
     })
 })
 
