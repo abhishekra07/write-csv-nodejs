@@ -25,7 +25,9 @@ exports.wrietToCsv = async ({
             Age: data.age,
             Position: data.position,
             Department: data.department,
-            Experiance: data.exp
+            Experiance: data.exp,
+            JoiningDate: data.joiningDate,
+            Salary: data.salary
         });
     }
     writableStream.close();
