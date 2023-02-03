@@ -12,23 +12,30 @@ const csvStream = csv.format({
 exports.wrietToCsv = async ({
     record
 }) => {
-    if (!fs.existsSync(folderPath)) {
-        fs.mkdirSync(folderPath, {
-            recursive: true
-        })
+    try {
+        if (!fs.existsSync(folderPath)) {
+            fs.mkdirSync(folderPath, {
+                recursive: true
+            })
+        }
+        let writableStream = fs.createWriteStream(path.resolve(__dirname, 'files', 'CSV', 'employess.csv'), {flags:'a'});
+        csvStream.pipe(writableStream);
+        for (const data of record) {
+            csvStream.write({
+                Name: data.name,
+                Age: data.age,
+                Position: data.position,
+                Department: data.department,
+                Experiance: data.exp,
+                JoiningDate: data.joiningDate,
+                Salary: data.salary
+            });
+        }
+        writableStream.close();
+        return true;
+    } catch (error) {
+        console.log(error)
+        writableStream.close();
+        return false;
     }
-    let writableStream = fs.createWriteStream(path.resolve(__dirname, 'files', 'CSV', 'employess.csv'), {flags:'a'});
-    csvStream.pipe(writableStream);
-    for (const data of record) {
-        csvStream.write({
-            Name: data.name,
-            Age: data.age,
-            Position: data.position,
-            Department: data.department,
-            Experiance: data.exp,
-            JoiningDate: data.joiningDate,
-            Salary: data.salary
-        });
-    }
-    writableStream.close();
 }
