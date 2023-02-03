@@ -17,7 +17,7 @@ exports.wrietToCsv = async ({
             recursive: true
         })
     }
-    let writableStream = fs.createWriteStream(path.resolve(__dirname, 'files', 'CSV', 'employess.csv'));
+    let writableStream = fs.createWriteStream(path.resolve(__dirname, 'files', 'CSV', 'employess.csv'), {flags:'a'});
     csvStream.pipe(writableStream);
     for (const data of record) {
         csvStream.write({
@@ -31,5 +31,4 @@ exports.wrietToCsv = async ({
         });
     }
     writableStream.close();
-    csvStream.end();
 }
